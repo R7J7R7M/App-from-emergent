@@ -1,0 +1,187 @@
+{
+  "design_system": {
+    "identity": {
+      "app_name": "Piggie Points",
+      "tone": "Playful, Romantic, Encouraging, Kawaii",
+      "target_audience": "Young woman (girlfriend)",
+      "core_values": ["Motivation", "Love", "Reward", "Cuteness"]
+    },
+    "typography": {
+      "font_family": {
+        "heading": "Quicksand",
+        "body": "Nunito"
+      },
+      "weights": {
+        "regular": "400",
+        "medium": "500",
+        "bold": "700"
+      },
+      "sizes": {
+        "xs": 12,
+        "sm": 14,
+        "base": 16,
+        "lg": 18,
+        "xl": 20,
+        "2xl": 24,
+        "3xl": 30,
+        "4xl": 36,
+        "5xl": 48
+      }
+    },
+    "colors": {
+      "primary": {
+        "default": "#FFB7C5",
+        "light": "#FFC5D3",
+        "dark": "#FF9EAA",
+        "background": "#FFF0F5"
+      },
+      "secondary": {
+        "default": "#FFFDD0",
+        "contrast": "#5D4037"
+      },
+      "accent": {
+        "gold": "#FFD700",
+        "green": "#98FB98",
+        "red": "#FF6B6B"
+      },
+      "neutral": {
+        "white": "#FFFFFF",
+        "gray_50": "#F9FAFB",
+        "gray_100": "#F3F4F6",
+        "gray_200": "#E5E7EB",
+        "gray_800": "#1F2937",
+        "text_primary": "#4A4A4A",
+        "text_secondary": "#8D6E63"
+      },
+      "gradients": {
+        "primary_gradient": ["#FFB7C5", "#FFC5D3"],
+        "gold_gradient": ["#FFD700", "#FDB931"]
+      }
+    },
+    "spacing": {
+      "xs": 4,
+      "sm": 8,
+      "md": 12,
+      "lg": 16,
+      "xl": 24,
+      "2xl": 32,
+      "3xl": 48,
+      "container_padding": 20
+    },
+    "borders": {
+      "radius": {
+        "sm": 8,
+        "md": 12,
+        "lg": 16,
+        "xl": 24,
+        "full": 9999
+      },
+      "width": {
+        "thin": 1,
+        "thick": 2
+      }
+    },
+    "shadows": {
+      "soft": {
+        "shadowColor": "#FFB7C5",
+        "shadowOffset": { "width": 0, "height": 4 },
+        "shadowOpacity": 0.3,
+        "shadowRadius": 8,
+        "elevation": 5
+      },
+      "card": {
+        "shadowColor": "#000",
+        "shadowOffset": { "width": 0, "height": 2 },
+        "shadowOpacity": 0.1,
+        "shadowRadius": 4,
+        "elevation": 3
+      }
+    }
+  },
+  "assets": {
+    "images": {
+      "mascot": "https://images.unsplash.com/photo-1605287977742-8273e33d896e?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "background_default": "https://images.pexels.com/photos/1831234/pexels-photo-1831234.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+      "walking_icon": "https://images.unsplash.com/photo-1565122751170-4ba9657da1fa?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "gym_icon": "https://images.unsplash.com/photo-1537289045171-78b92887ed06?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "food_icon": "https://images.unsplash.com/photo-1540420773420-3366772f4999?crop=entropy&cs=srgb&fm=jpg&q=85"
+    },
+    "icons": {
+      "library": "Ionicons",
+      "names": {
+        "home": "home-outline",
+        "home_active": "home",
+        "rewards": "gift-outline",
+        "rewards_active": "gift",
+        "camera": "camera-outline",
+        "settings": "settings-outline"
+      }
+    }
+  },
+  "components": {
+    "Button": {
+      "styles": {
+        "primary": {
+          "backgroundColor": "#FFB7C5",
+          "borderRadius": 9999,
+          "paddingVertical": 16,
+          "paddingHorizontal": 32,
+          "alignItems": "center",
+          "justifyContent": "center",
+          "shadowColor": "#FFB7C5",
+          "shadowOpacity": 0.4,
+          "shadowRadius": 10,
+          "elevation": 6
+        },
+        "text": {
+          "color": "#FFFFFF",
+          "fontFamily": "Quicksand",
+          "fontWeight": "700",
+          "fontSize": 18
+        }
+      }
+    },
+    "Card": {
+      "styles": {
+        "backgroundColor": "#FFFFFF",
+        "borderRadius": 24,
+        "padding": 20,
+        "marginVertical": 10,
+        "shadowColor": "#000",
+        "shadowOpacity": 0.05,
+        "shadowRadius": 10,
+        "elevation": 2
+      }
+    },
+    "GlassContainer": {
+      "description": "Used for overlays on photo backgrounds",
+      "styles": {
+        "intensity": 20,
+        "tint": "light",
+        "borderRadius": 24,
+        "overflow": "hidden"
+      }
+    }
+  },
+  "layout_rules": {
+    "safe_area": "Always wrap main content in SafeAreaView",
+    "padding": "Use 20px padding for screen edges",
+    "alignment": "Center content horizontally, but align text left for readability in cards",
+    "glassmorphism": "Use Expo BlurView for text containers when the background is a user photo"
+  },
+  "instructions_to_main_agent": [
+    "1. INSTALLATION: Install `nativewind` and `tailwindcss` if possible for easier styling, OR use standard StyleSheet with the variables provided above.",
+    "2. FONTS: Load 'Quicksand' and 'Nunito' using `expo-font` in the root `_layout.tsx` or `App.js`.",
+    "3. NAVIGATION: Use `expo-router` with a Bottom Tab Navigator. Customize the tab bar to float (margin bottom 20, rounded corners).",
+    "4. IMAGES: Use `expo-image` for caching. Use the provided Image URLs for default placeholders.",
+    "5. BACKEND: Ensure FastAPI backend serves the 'Piggie Points' and 'Streak' data.",
+    "6. ANIMATION: Use `react-native-reanimated` for the Spin Wheel and progress bars.",
+    "7. CRITICAL: DO NOT use Shadcn/UI (it is for web). Build custom components using the `View` and `Text` primitives matching the `components` styles defined above.",
+    "8. TESTING: Add `testID` to all interactive elements (buttons, inputs) for testing."
+  ],
+  "universal_guidelines": [
+    "Avoid 'AI Slop': No generic lists. Use cards with icons and rich visuals.",
+    "Micro-interactions: Add active opacity or scale animation on button press.",
+    "Pink Aesthetic: Stick to the defined palette. Avoid harsh blacks (#000000). Use #4A4A4A or #5D4037 instead."
+  ]
+}
