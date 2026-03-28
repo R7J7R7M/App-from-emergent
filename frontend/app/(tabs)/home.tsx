@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useContext } from 'react';
 import {
   View, Text, TouchableOpacity, StyleSheet, ScrollView,
-  RefreshControl, ActivityIndicator, Dimensions,
+  RefreshControl, ActivityIndicator, Dimensions, Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -40,6 +40,7 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [completing, setCompleting] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchData = useCallback(async () => {
     if (!user) return;
@@ -61,6 +62,31 @@ export default function HomeScreen() {
   }, [user]);
 
   useEffect(() => { fetchData(); }, [fetchData]);
+
+  const handleDeleteTask = (task: Task) => {
+    Alert.alert(
+      'Delete Task',
+      `Delete "${task.name}"?`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: async () => {
+            setDeleting(task.id);
+            try {
+              const res = await fetch(`${API}/api/tasks/${task.id}`, { method: 'DELETE' });
+              if (res.ok) fetchData();
+            } catch (e) {
+              console.error(e);
+            } finally {
+              setDeleting(null);
+            }
+          },
+        },
+      ]
+    );
+  };
 
   const handleTaskPress = async (task: Task) => {
     if (task.completed_today) return;
@@ -178,7 +204,7 @@ export default function HomeScreen() {
               style={[styles.taskCard, task.completed_today && styles.taskCompleted]}
               onPress={() => handleTaskPress(task)}
               activeOpacity={0.7}
-              disabled={task.completed_today || completing === task.id}
+              disabled={completing === task.id}
             >
               <View style={[styles.taskIcon, task.completed_today && styles.taskIconDone]}>
                 {task.completed_today ? (
@@ -217,6 +243,20 @@ export default function HomeScreen() {
                   </>
                 )}
               </View>
+              {!task.is_default && (
+                <TouchableOpacity
+                  style={styles.deleteBtn}
+                  onPress={() => handleDeleteTask(task)}
+                  disabled={deleting === task.id}
+                  hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                >
+                  {deleting === task.id ? (
+                    <ActivityIndicator size="small" color="#FF9EAA" />
+                  ) : (
+                    <Ionicons name="trash-outline" size={18} color="#FF9EAA" />
+                  )}
+                </TouchableOpacity>
+              )}
             </TouchableOpacity>
           ))
         )}
@@ -418,5 +458,9 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#C4A0A8',
     fontWeight: '500',
+  },
+  deleteBtn: {
+    padding: 6,
+    marginLeft: 6,
   },
 });
